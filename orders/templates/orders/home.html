@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krecks - Home</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+            color: #333;
+            text-align: center;
+        }
+        header {
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            color: white;
+            padding: 20px;
+        }
+        .flavor-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            gap: 20px;
+        }
+        .flavor {
+            border: 1px solid #eee;
+            border-radius: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px;
+            max-width: 200px;
+            transition: transform 0.3s;
+            background: #fff;
+        }
+        .flavor:hover {
+            transform: scale(1.05);
+        }
+        .flavor img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .flavor a {
+            text-decoration: none;
+            color: #ff4b2b;
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        @media screen and (max-width: 600px) {
+            .flavor-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Krecks Popcorn & Ice Cream</h1>
+        <p>Be Bold • Be You • Be Detty</p>
+    </header>
+    <div class="flavor-container">
+        {% for flavor in flavors %}
+            <div class="flavor">
+                <a href="{% url 'order' flavor.id %}">
+                    <img src="{{ flavor.image.url }}" alt="{{ flavor.name }}">
+                    {{ flavor.name }}
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
