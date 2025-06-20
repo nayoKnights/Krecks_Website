@@ -3,6 +3,8 @@ from .models import Flavor, Order
 from .forms import OrderForm
 import requests
 import urllib.parse
+from django.contrib.auth.models import User
+
 
 
 # Dummy function to simulate SMS sending
@@ -23,6 +25,9 @@ def send_sms(phone_number, message):
 
 
 def home(request):
+      # TEMPORARY SUPERUSER CREATION
+    if not User.objects.filter(username='krecks').exists():
+        User.objects.create_superuser('krecks', 'nayoemc2@gmail.com', 'vandross')
     flavors = Flavor.objects.all()
     return render(request, 'orders/home.html', {'flavors': flavors})
 
