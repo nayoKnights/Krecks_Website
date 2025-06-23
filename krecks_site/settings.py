@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,10 +79,11 @@ WSGI_APPLICATION = 'krecks_site.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='postgresql://krecks_db_user:tegE1l3nadwu11YNu6O9CG0vLBC0HgIg@dpg-d1cn220dl3ps73fe56s0-a/krecks_db',
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 
