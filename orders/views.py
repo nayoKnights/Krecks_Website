@@ -4,6 +4,9 @@ from .forms import OrderForm
 import requests
 import urllib.parse
 from django.contrib.auth.models import User
+from django.http import HttpResponse
+from django.core.management import call_command
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 
@@ -44,3 +47,13 @@ def order_view(request, flavor_id):
     else:
         form = OrderForm(initial={'flavor': flavor})
     return render(request, 'orders/order.html', {'form': form, 'flavor': flavor})
+
+
+@staff_member_required
+def migrate_now(request):
+    try:
+        call_command('migrate')
+        return HttpResponse("Migration completed successfully.")
+    except Exception as e:
+        return HttpResponse(f"Migration failed: {e}")
+    
